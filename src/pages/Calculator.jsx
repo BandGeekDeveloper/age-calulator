@@ -2,9 +2,11 @@ import React, {useState} from "react";
 
 const Calculator = () => {
 
-    const [dayValue, setDayValue] = useState(2020);
-    const [monthValue, setMonthValue] = useState(5);
-    const [yearValue, setYearValue] = useState(31);
+    const [dayValue, setDayValue] = useState('');
+    const [monthValue, setMonthValue] = useState('');
+    const [yearValue, setYearValue] = useState('');
+    const [timeDiff, setTimeDiff] = useState(null);
+    const [err, setErr] = useState('');
 
     const inputDate = new Date(yearValue, monthValue - 1, dayValue); 
 
@@ -22,6 +24,16 @@ const Calculator = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!inputDate) {
+            setErr("Please enter a date.");
+            return;
+        }
+
+        const diff = calculateTimeDiff(inputDate);
+
+        setErr('');
+        setTimeDiff(diff);
     }
 
     function calculateTimeDiff(inputDate) {
@@ -55,8 +67,6 @@ const Calculator = () => {
         }
     }
 
-    const timeDiff = calculateTimeDiff(inputDate);
-
     console.log(timeDiff);
 
     return (
@@ -74,7 +84,7 @@ const Calculator = () => {
                     value={dayValue}
                     placeholder="DD"
                     onChange={handleDay}
-                    className="border border-[#dbdbdb] focus:outline-none rounded-lg h-[72px] w-[156px] mr-8 px-4 py-2"
+                    className="border ${err ? 'border-red-500' : 'border-[#dbdbdb]'}  focus:outline-none rounded-lg h-[72px] w-[156px] mr-8 px-4 py-2"
                   />
                 </label>
                 <label htmlFor="monthInput">
@@ -86,7 +96,7 @@ const Calculator = () => {
                     value={monthValue}
                     placeholder="MM"
                     onChange={handleMonth}
-                    className="border border-[#dbdbdb] focus:outline-none rounded-lg h-[72px] w-[156px] mr-8 px-4 py-2"
+                    className={`border ${err ? 'border-red-500' : 'border-[#dbdbdb]'} focus:outline-none rounded-lg h-[72px] w-[156px] mr-8 px-4 py-2`}
                   />
                 </label>
                 <label htmlFor="yearInput">
@@ -98,7 +108,7 @@ const Calculator = () => {
                     value={yearValue}
                     placeholder="YYYY"
                     onChange={handleYear}
-                    className="border border-[#dbdbdb] focus:outline-none rounded-lg h-[72px] w-[156px] px-4 py-2"
+                    className="border ${err ? 'border-red-500' : 'border-[#dbdbdb]'} focus:outline-none rounded-lg h-[72px] w-[156px] px-4 py-2"
                   />
                 </label>
               </div>
@@ -126,15 +136,33 @@ const Calculator = () => {
             </form>
           </div>
           <div className="flex flex-col ml-[60px]">
-            <h1 className="text-8xl font-extrabold">
-              <span className="text-[#854dff]">{timeDiff.years}</span>Years
-            </h1>
-            <h1 className="text-8xl font-extrabold">
-              <span className="text-[#854dff]">{timeDiff.months}</span>Months
-            </h1>
-            <h1 className="text-8xl font-extrabold">
-              <span className="text-[#854dff]">{timeDiff.days}</span>Days
-            </h1>
+            {timeDiff === null ? (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">--</span>Years
+              </h1>
+            ) : (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">{timeDiff.years}</span>Years
+              </h1>
+            )}
+            {timeDiff === null ? (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">--</span>Months
+              </h1>
+            ) : (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">{timeDiff.months}</span>Months
+              </h1>
+            )}
+            {timeDiff === null ? (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">--</span>Days
+              </h1>
+            ) : (
+              <h1 className="text-8xl font-extrabold">
+                <span className="text-[#854dff]">{timeDiff.days}</span>Days
+              </h1>
+            )}
           </div>
         </div>
       </div>
