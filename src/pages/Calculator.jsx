@@ -161,29 +161,29 @@ const Calculator = () => {
           <div className="flex flex-col m-auto sm:ml-[60px]">
             {timeDiff === null || err ? (
               <h1 className="text-7xl sm:text-8xl font-extrabold">
-                <span className="text-[#854dff]">--</span>years
+                <span className="text-[#854dff] yearsNull">--</span>years
               </h1>
             ) : (
               <h1 className="text-7xl sm:text-8xl font-extrabold">
-                <span className="text-[#854dff]">{timeDiff.years}</span>years
+                <span className="text-[#854dff] years">{timeDiff.years}</span>years
               </h1>
             )}
             {timeDiff === null || err ? (
               <h1 className="text-7xl sm:text-8xl font-extrabold">
-                <span className="text-[#854dff]">--</span>months
+                <span className="text-[#854dff] monthsNull">--</span>months
               </h1>
             ) : (
               <h1 className="text-7xl sm:text-8xl font-extrabold">
-                <span className="text-[#854dff]">{timeDiff.months}</span>months
+                <span className="text-[#854dff] months">{timeDiff.months}</span>months
               </h1>
             )}
             {timeDiff === null || err ? (
               <h1 className="text-7xl sm:text-8xl font-extrabold">
-                <span className="text-[#854dff]">--</span>days
+                <span className="text-[#854dff] daysNull">--</span>days
               </h1>
             ) : (
               <h1 className="text-7xl sm:text-8xl font-extrabold mb-2 md:mb-4 px-1">
-                <span className="text-[#854dff]">{timeDiff.days}</span>days
+                <span className="text-[#854dff] days">{timeDiff.days}</span>days
               </h1>
             )}
           </div>
